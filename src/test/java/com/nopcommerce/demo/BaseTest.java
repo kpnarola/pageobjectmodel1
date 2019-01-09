@@ -1,15 +1,20 @@
 package com.nopcommerce.demo;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest extends Utils {
 
     @BeforeMethod
-    public void openBrowser() {
+    public void openBrowser() throws Exception{
 
         System.setProperty("webdriver.chrome.driver", "src\\BrowserDriver\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -25,7 +30,26 @@ public class BaseTest extends Utils {
     }
     @AfterMethod
 
-    public void closeBrowser(){
+    public void closeBrowser(ITestResult result){
+
+        if (ITestResult.FAILURE==result.getStatus())
+        {
+            try {
+                TakesScreenshot ts = (TakesScreenshot) driver;
+
+                File source = ts.getScreenshotAs(OutputType.FILE);
+
+                FileUtils.copyFile(source, new File("./Screenshots/" + result.getName() + ".png"));
+                System.out.println("Screenshot taken");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception while taking screenshot"+e.getMessage());
+            }
+
+        }
+
+
         driver.quit();
     }
 

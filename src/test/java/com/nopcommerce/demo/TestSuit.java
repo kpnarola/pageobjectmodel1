@@ -22,7 +22,7 @@ public class TestSuit extends BaseTest {
         //click on registration button in home page
         homePage.clickOnRegistrationButton();
 
-        //registering an account
+        //register an account
         register.registration();
 
         //Verifying the registration successful message
