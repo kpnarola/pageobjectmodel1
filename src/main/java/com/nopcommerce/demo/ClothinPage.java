@@ -9,15 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.nopcommerce.demo.Utils.clickOnElement;
+public class ClothinPage extends Utils {
 
-public class ProductPage extends BasePage {
     public void sortBYPriceHighToLOw() {
-        //Clicking on Apparel
-        clickOnElement(By.linkText("Apparel"));
-
-        //Clicking on Clothing
-        clickOnElement(By.xpath("//img[@alt='Picture for category Clothing']"));
 
         //Selecting Product
         Select sortByHighToLow = new Select(driver.findElement(By.id("products-orderby")));
@@ -25,6 +19,10 @@ public class ProductPage extends BasePage {
         //Sort by Product price High to Low
         sortByHighToLow.selectByVisibleText("Price: High to Low");
 
+    }
+
+    //Method for result comparision
+    public void assertForSortByPriceHighToLow() {
         //Taking all Product Price for List by using Xpath
         List<WebElement> price = driver.findElements(By.xpath("//div/div[2]/div[3]/div[1]/span"));
         System.out.println();
@@ -53,22 +51,19 @@ public class ProductPage extends BasePage {
         //Converting String in Float For Comparing Assert
         Float lastProductPrice = Float.parseFloat(lastIndexDigitOnly);
 
+
         //Verifying user should able to sort price high to low
         Assert.assertTrue(firstProductPrice > lastProductPrice, "Sorting high to low prices is not working ");
 
     }
 
     public void sortByProductLowToHIgh() {
-        //Clicking on Apparel
-        clickOnElement(By.linkText("Apparel"));
-
-        //Clicking on Clothing
-        clickOnElement(By.xpath("//img[@alt='Picture for category Clothing']"));
-
         //Selecting Product From Index and filtering the price High to Low
         Select sortByHighToLow = new Select(driver.findElement(By.id("products-orderby")));
         sortByHighToLow.selectByVisibleText("Price: Low to High");
+    }
 
+    public void assertForSortByPriceLowToHigh() {
         //Getting Prices for List by using X path
         List<WebElement> price = driver.findElements(By.xpath("//div/div[2]/div[3]/div[1]/span"));
 
