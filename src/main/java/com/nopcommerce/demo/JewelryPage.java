@@ -7,13 +7,15 @@ import org.testng.asserts.SoftAssert;
 import java.util.List;
 
 public class JewelryPage extends Utils{
-
+    LoadProperty loadProperty = new LoadProperty();
     SoftAssert softAssert = new SoftAssert();
+    By listOfJewelryProducts = By.cssSelector(".item-box .actual-price");
+
 
     public void assertForCurrencyIsEuro() {
 
          //Select list of item with price
-        List<WebElement> jewelryPriceList = driver.findElements(By.cssSelector(".item-box .actual-price"));
+        List<WebElement> jewelryPriceList = driver.findElements(listOfJewelryProducts);
         //To get total element size System.out.println(jewelryPriceList.size());
 
         for (WebElement al : jewelryPriceList) {
@@ -27,7 +29,7 @@ public class JewelryPage extends Utils{
 
     public void assertForCurrencyUSDollar(){
          //Select list of product with price
-        List<WebElement> jewelryPriceList = driver.findElements(By.cssSelector(".item-box .actual-price"));
+        List<WebElement> jewelryPriceList = driver.findElements(listOfJewelryProducts);
 
         for (WebElement al : jewelryPriceList) {
 
